@@ -12,5 +12,5 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/tfq0/tfq_tool.git
+   git clone https://github.com/TFQ0/TFQ_tool.git
    cd tfq_tool
