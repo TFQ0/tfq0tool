@@ -1,22 +1,23 @@
-#!/usr/bin/env python3
-
 import os
+import argparse
 from PyPDF2 import PdfReader
 from docx import Document
 import openpyxl
 
 def extract_text_from_file(file_path):
+    """Extract text based on the file extension."""
     _, file_extension = os.path.splitext(file_path)
     file_extension = file_extension.lower()
 
-    if file_extension == '.txt':
-        return extract_text_from_txt(file_path)
-    elif file_extension == '.pdf':
-        return extract_text_from_pdf(file_path)
-    elif file_extension == '.docx':
-        return extract_text_from_docx(file_path)
-    elif file_extension == '.xlsx':
-        return extract_text_from_xlsx(file_path)
+    extractors = {
+        '.txt': extract_text_from_txt,
+        '.pdf': extract_text_from_pdf,
+        '.docx': extract_text_from_docx,
+        '.xlsx': extract_text_from_xlsx,
+    }
+
+    if file_extension in extractors:
+        return extractors[file_extension](file_path)
     elif file_extension in ['.py', '.java', '.js', '.html', '.css', '.json', '.xml', '.c', '.cpp']:
         return extract_text_from_code(file_path)
     else:
@@ -56,37 +57,38 @@ def extract_text_from_code(file_path):
         return f.read()
 
 def main():
-    import argparse
-
     parser = argparse.ArgumentParser(
-        description="TFQ Tool: A simple text extraction tool for various file formats."
+        description="TFQ_tool: Extract text from various file formats including text, PDFs, Word documents, Excel sheets, and code files.",
+        epilog="Examples:\n"
+               "  python TFQ_tool.py sample.pdf\n"
+               "  python TFQ_tool.py document.docx --output extracted.txt\n"
+               "  python TFQ_tool.py file1.txt file2.txt --verbose",
+        formatter_class=argparse.RawTextHelpFormatter
     )
-    parser.add_argument("file", help="Path to the file to extract text from.")
-    parser.add_argument("-o", "--output", help="Optional path to save the extracted text.")
+    parser.add_argument("file_paths", nargs='*', help="Path(s) to the file(s) for text extraction")
+    parser.add_argument("-o", "--output", type=str, help="File to save the extracted text (default: generated automatically)")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output for debugging or detailed status")
 
     args = parser.parse_args()
-    file_path = args.file
-    output_path = args.output
 
-    if not os.path.exists(file_path):
-        print(f"Error: The file '{file_path}' does not exist.")
+    if not args.file_paths:
+        parser.print_help()
         return
 
-    try:
-        extracted_text = extract_text_from_file(file_path)
-        if output_path:
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(extracted_text)
-            print(f"✅ Text successfully extracted and saved to '{output_path}'.")
-        else:
-            print("✅ Extracted Text:")
-            print("=" * 40)
-            print(extracted_text)
-            print("=" * 40)
-    except ValueError as e:
-        print(f"❌ {e}")
-    except Exception as e:
-        print(f"❌ An unexpected error occurred: {e}")
+    for file_path in args.file_paths:
+        try:
+            if args.verbose:
+                print(f"Processing file: {file_path}")
+            extracted_text = extract_text_from_file(file_path)
+            if args.output:
+                output_file = args.output
+            else:
+                output_file = f"{os.path.splitext(os.path.basename(file_path))[0]}_extracted.txt"
+            with open(output_file, 'w', encoding='utf-8') as out_file:
+                out_file.write(extracted_text)
+            print(f"Text extracted successfully. Saved to {output_file}.")
+        except Exception as e:
+            print(f"An error occurred while processing {file_path}: {e}")
 
 if __name__ == "__main__":
     main()
