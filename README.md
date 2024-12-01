@@ -14,3 +14,15 @@
    ```bash
    git clone https://github.com/TFQ0/TFQ_tool.git
    cd tfq_tool
+
+2. How to use the tool (must be in the same path)
+   ```bash
+   python  tfq_tool.py
+
+
+2. How to use the tool (must be in the same path)
+   ```bash
+     python TFQ_tool.py file1.txt file2.txt --verbose
+     python TFQ_tool.py document.docx --output extracted.txt
+     
+
