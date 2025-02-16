@@ -1,4 +1,3 @@
-# tfq_tool.py (improved)
 import os
 import argparse
 import concurrent.futures
@@ -64,13 +63,13 @@ def process_single_file(file_path, args):
         if args.verbose:
             print(f"Processing file: {file_path}")
         
-        # Validate input file
+      
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"File not found: {file_path}")
         
         extracted_text = extract_text_from_file(file_path)
         
-        # Determine output path
+      
         if args.output:
             if os.path.isdir(args.output):
                 base_name = os.path.basename(file_path)
@@ -82,13 +81,13 @@ def process_single_file(file_path, args):
         else:
             output_file = f"{os.path.splitext(os.path.basename(file_path))[0]}_extracted.txt"
         
-        # Check if output file exists
+       
         if os.path.exists(output_file) and not args.force:
             overwrite = input(f"File {output_file} exists. Overwrite? (y/n): ").strip().lower()
             if overwrite != 'y':
                 return (file_path, None, "Skipped due to user choice")
         
-        # Write output
+       
         with open(output_file, 'w', encoding='utf-8') as out_file:
             out_file.write(extracted_text)
         
@@ -118,11 +117,11 @@ def main():
         parser.print_help()
         return
 
-    # Validate output directory
+
     if args.output and not os.path.isdir(args.output) and len(args.file_paths) > 1:
         parser.error("When processing multiple files, --output must be a directory.")
 
-    # Parallel processing
+ 
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.threads) as executor:
         futures = [executor.submit(process_single_file, fp, args) for fp in args.file_paths]
         for future in concurrent.futures.as_completed(futures):
