@@ -1,4 +1,4 @@
-# TFQ_tool  
+# TFQ-tool  
 **is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.**  
 [![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -28,10 +28,10 @@
 
 2. Used by repository
    ```bash
-      git clone https://github.com/your-username/TFQ_tool.git
-      cd TFQ_tool
+      git clone https://github.com/tfq0/TFQ_tool.git
+      cd tfq-tool
       pip install -r requirements.txt
-      python tfq_tool.py
+      python tfq-tool.py
 
 
 
@@ -40,17 +40,17 @@
     ```bash
 
          "Basic Command"
-          tfq_tool [FILES] [OPTIONS] 
+          tfq-tool [FILES] [OPTIONS] 
 
          "Single file extraction" 
-         tfq_tool document.pdf --output results.txt 
+         tfq-tool document.pdf --output results.txt 
 
          "Batch processing with 4 threads"
-         tfq_tool *.pdf *.docx --threads 4 --output ./extracted_texts
+         tfq-tool *.pdf *.docx --threads 4 --output ./extracted_texts
 
 
          "Force overwrite existing files"  
-         tfq_tool data.xlsx --output output.txt --force
+         tfq-tool data.xlsx --output output.txt --force
 
 
 
