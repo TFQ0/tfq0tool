@@ -22,7 +22,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "tfq_tool=TFQ_tool.tfq_tool:main",
+            "tfq-tool=TFQ-tool.tfq-tool:main",
         ],
     },
     classifiers=[
