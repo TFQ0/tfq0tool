@@ -10,6 +10,8 @@ setup(
         'PyPDF2',
         'python-docx',
         'openpyxl',
+        'pdfminer.six',
+
     ],
     entry_points={
         'console_scripts': [
