@@ -7,12 +7,11 @@ with open("README.md", "r", encoding="utf-8") as f:
 setup(
     name="tfq-tool",            
     version="2.0.0",            
-    author="Your Name",
-    author_email="your@email.com",
-    description="Extract text from PDFs, Word docs, Excel sheets, and code files.",
+    author="Talal",
+    description="is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/your-username/TFQ_tool",
+    url="https://github.com/tfq0/TFQ_tool",
     packages=find_packages(),
     install_requires=[
         "PyPDF2",
