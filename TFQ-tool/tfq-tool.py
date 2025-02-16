@@ -98,11 +98,11 @@ def process_single_file(file_path, args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="TFQ_tool: Extract text from various file formats including text, PDFs, Word documents, Excel sheets, and code files.",
+        description="TFQ-tool: Extract text from various file formats including text, PDFs, Word documents, Excel sheets, and code files.",
         epilog="Examples:\n"
-               "  tfq_tool sample.pdf\n"
-               "  tfq_tool document.docx --output ./extracted\n"
-               "  tfq_tool file1.txt file2.txt --threads 4 --verbose",
+               "  tfq-tool sample.pdf\n"
+               "  tfq-tool document.docx --output ./extracted\n"
+               "  tfq-tool file1.txt file2.txt --threads 4 --verbose",
         formatter_class=argparse.RawTextHelpFormatter
     )
     parser.add_argument("file_paths", nargs='*', help="Path(s) to the file(s) for text extraction")
