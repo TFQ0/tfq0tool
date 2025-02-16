@@ -1,22 +1,65 @@
-# TFQ Tool
+# TFQ_tool  
+**is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.**  
+[![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI Version](https://img.shields.io/pypi/v/tfq-tool)](https://pypi.org/project/tfq-tool/)
 
-**TFQ Tool** is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.
+![](https://via.placeholder.com/800x200.png?text=TFQ_tool+Demo) <!-- Add real screenshot later -->
 
-## Installation
+## Features ✨
+- 📂 **Multi-format support**: PDF, Word, Excel, TXT, and 8+ code formats
+- ⚡ **Parallel processing**: Multi-threaded extraction for bulk operations
+- 🛡️ **Robust error handling**: Clear error messages and file validation
+- 📦 **Auto-output naming**: Generates organized output files/directories
+- 🔍 **Verbose logging**: Detailed processing insights for debugging
 
-1. Clone the repository:
+## Installation 💻
+
+### From PyPI (Recommended)
+
+
+
+
+1. Download from pip
+
    ```bash
-   git clone https://github.com/TFQ0/TFQ_tool.git
-   cd tfq_tool
+   pip install tfq-tool
 
-2. How to use the tool (must be in the same path)
+
+
+2. Used by repository
    ```bash
-   python  tfq_tool.py
+      git clone https://github.com/your-username/TFQ_tool.git
+      cd TFQ_tool
+      pip install -r requirements.txt
+      python tfq_tool.py
 
 
-2. How to use the tool (must be in the same path)
-   ```bash
-     python TFQ_tool.py file1.txt file2.txt --verbose
-     python TFQ_tool.py document.docx --output extracted.txt
-     
+
+3. Usage 🛠️
+
+    ```bash
+
+         "Basic Command"
+          tfq_tool [FILES] [OPTIONS] 
+
+         "Single file extraction" 
+         tfq_tool document.pdf --output results.txt 
+
+         "Batch processing with 4 threads"
+         tfq_tool *.pdf *.docx --threads 4 --output ./extracted_texts
+
+
+         "Force overwrite existing files"  
+         tfq_tool data.xlsx --output output.txt --force
+
+
+
+## Options⚙️
+
+Flag	Description
+-o, --output	Output path (file or directory)
+-t, --threads	Thread count (default: 1)
+-v, --verbose	Show detailed processing logs
+-f, --force  	Overwrite files without confirmation
 
