@@ -11,7 +11,6 @@
 - ⚡ **Parallel processing**: Multi-threaded extraction for bulk operations
 - 🛡️ **Robust error handling**: Clear error messages and file validation
 - 📦 **Auto-output naming**: Generates organized output files/directories
-- 🔍 **Verbose logging**: Detailed processing insights for debugging
 
 ## Installation 💻
 
@@ -57,9 +56,9 @@
 
 ## Options⚙️
 
-Flag	Description
--o, --output	Output path (file or directory)
--t, --threads	Thread count (default: 1)
--v, --verbose	Show detailed processing logs
--f, --force  	Overwrite files without confirmation
+**Flag	Description**
+**-o, --output	Output path (file or directory)**
+**-t, --threads	Thread count (default: 1)**
+**-v, --verbose	Show detailed processing logs**
+**-f, --force  	Overwrite files without confirmation**
 
