@@ -19,10 +19,10 @@
 
 
 
-1. Download from pip
+1. Download from pipx
 
    ```bash
-   pip install tfq-tool
+   pipx install tfq-tool
 
 
 
