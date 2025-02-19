@@ -21,8 +21,14 @@
 
 1. Download from pipx
 
+     ```bash
+     pipx install tfq-tool
+
+1. Download from pip
+
    ```bash
-   pipx install tfq-tool
+   pip install tfq-tool
+
 
 
 
