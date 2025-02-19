@@ -1,10 +1,8 @@
-# TFQ-tool  
+# TFQ0tool  
 **is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.**  
 [![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI Version](https://img.shields.io/pypi/v/tfq-tool)](https://pypi.org/project/tfq-tool/)
-
-![](https://via.placeholder.com/800x200.png?text=TFQ_tool+Demo) <!-- Add real screenshot later -->
 
 ## Features ✨
 - 📂 **Multi-format support**: PDF, Word, Excel, TXT, and 8+ code formats
