@@ -22,19 +22,19 @@
 1. Download from pipx
 
      ```bash
-     pipx install tfq-tool
+     pipx install tfq0tool
 
 1. Download from pip
 
    ```bash
-   pip install tfq-tool
+   pip install tfq0tool
 
 
 
 
 2. Used by repository
    ```bash
-      git clone https://github.com/tfq0/TFQ-tool.git
+      git clone https://github.com/tfq0/TFQ0tool.git
       cd tfq-tool
       pip install -r requirements.txt
       python tfq-tool.py
@@ -46,17 +46,17 @@
     ```bash
 
          "Basic Command"
-          tfq-tool [FILES] [OPTIONS] 
+          tfq0tool [FILES] [OPTIONS] 
 
          "Single file extraction" 
-         tfq-tool document.pdf --output results.txt 
+         tfq0tool document.pdf --output results.txt 
 
          "Batch processing with 4 threads"
-         tfq-tool *.pdf *.docx --threads 4 --output ./extracted_texts
+         tfq0tool *.pdf *.docx --threads 4 --output ./extracted_texts
 
 
          "Force overwrite existing files"  
-         tfq-tool data.xlsx --output output.txt --force
+         tfq0tool data.xlsx --output output.txt --force
 
 
 
