@@ -6,12 +6,12 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="tfq-tool",            
-    version="2.0.1",            
+    version="0.2.0",            
     author="Talal",
     description="is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/tfq0/TFQ_tool",
+    url="https://github.com/tfq0/TFQ-tool",
     packages=find_packages(),
     install_requires=[
         "PyPDF2",
@@ -22,7 +22,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "tfq-tool=TFQ-tool.tfq-tool:main",
+            "tfq_tool=TFQ_tool.tfq_tool:main",
         ],
     },
     classifiers=[
