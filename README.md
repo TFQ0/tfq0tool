@@ -22,10 +22,10 @@
      ```bash
      pipx install tfq0tool
 
-1. Download from pip
+1. Run tool 
 
    ```bash
-   pip install tfq0tool
+   pipx run tfq0tool
 
 
 
