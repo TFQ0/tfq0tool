@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="tfq0tool",            
-    version="0.2.1",            
+    version="0.2.2",            
     author="Talal",
     description="is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.",
     long_description=long_description,
