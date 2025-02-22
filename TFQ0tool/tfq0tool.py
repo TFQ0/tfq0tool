@@ -99,7 +99,7 @@ def process_single_file(file_path, args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="TFQ0tool: is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.",
+        description="tfq0tool: is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.",
         epilog="Examples:\n"
                "  tfq0tool sample.pdf\n"
                "  tfq0tool document.docx --output ./extracted\n"
@@ -113,6 +113,7 @@ def main():
     parser.add_argument("-f", "--force", action="store_true", help="Overwrite files without prompting")
     
     args = parser.parse_args()
+    
 
     if not args.file_paths:
         parser.print_help()
