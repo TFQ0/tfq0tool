@@ -5,13 +5,13 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="tfq0tool",            
-    version="0.2.2",            
+    name="tfqtool",            
+    version="1.2.5",            
     author="Talal",
     description="is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/tfq0/TFQ0tool",
+    url="https://github.com/tfq0/tfq0tool",
     packages=find_packages(),
     install_requires=[
         "PyPDF2",
