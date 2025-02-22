@@ -113,7 +113,7 @@ def main():
     parser.add_argument("-f", "--force", action="store_true", help="Overwrite files without prompting")
     
     args = parser.parse_args()
-    
+
 
     if not args.file_paths:
         parser.print_help()
