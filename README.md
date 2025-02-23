@@ -30,7 +30,7 @@
 
 
 
-2. Used by repository
+2. Used by repository  "Python 3.8 or higher required"
    ```bash
       git clone https://github.com/tfq0/tfq0tool.git
       cd tfq0tool
