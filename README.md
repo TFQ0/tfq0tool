@@ -32,7 +32,7 @@
 
 2. Used by repository
    ```bash
-      git clone https://github.com/tfq0/TFQ0tool.git
+      git clone https://github.com/tfq0/tfq0tool.git
       cd tfq0tool
       pip install -r requirements.txt
       python tfq0tool.py
