@@ -33,9 +33,9 @@
 2. Used by repository
    ```bash
       git clone https://github.com/tfq0/TFQ0tool.git
-      cd tfq-tool
+      cd tfq0tool
       pip install -r requirements.txt
-      python tfq-tool.py
+      python tfq0tool.py
 
 
 
