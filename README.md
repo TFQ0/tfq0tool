@@ -35,6 +35,7 @@
       git clone https://github.com/tfq0/tfq0tool.git
       cd tfq0tool
       pip install -r requirements.txt
+      cd tfq0tool
       python tfq0tool.py
 
 
