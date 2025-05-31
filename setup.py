@@ -7,31 +7,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="tfq0tool",            
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    version="1.2.5",            
-=======
-    version="0.3.0",            
->>>>>>> Stashed changes
-=======
-    version="0.3.0",            
->>>>>>> Stashed changes
-=======
-    version="0.3.0",            
->>>>>>> Stashed changes
-=======
-    version="0.3.0",            
->>>>>>> Stashed changes
-=======
-    version="0.3.0",            
->>>>>>> Stashed changes
-=======
-    version="0.3.0",            
->>>>>>> Stashed changes
+    version="0.2.0",            
     author="Talal",
     description="A powerful text extraction utility for multiple file formats, including PDFs, Word documents, spreadsheets, and code files.",
     long_description=long_description,

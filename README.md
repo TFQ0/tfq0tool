@@ -35,373 +35,57 @@
 ## Installation 💻
 
 ### From PyPI (Recommended)
-```bash
-pip install tfq0tool
-```
 
-### From Source
-```bash
-git clone https://github.com/tfq0/TFQ0tool.git
-cd TFQ0tool
-pip install -e .
-```
 
-## Usage 🛠️
 
-### Basic Usage
-```bash
-# Process a single file
-tfq0tool document.pdf
 
-# Process multiple files
-tfq0tool *.pdf *.docx
+1. Download from pipx
 
-# Specify output directory
-tfq0tool document.pdf --output ./extracted/
+     ```bash
+     pipx install tfq0tool
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-1. Run tool 
+1. Download from pip
 
    ```bash
-   pipx run tfq0tool
-=======
-# Enable parallel processing
-tfq0tool *.pdf --threads 4
-```
+   pip install tfq0tool
 
-### Advanced Options
-```bash
-# Password-protected PDF
-tfq0tool secure.pdf --password mypass
->>>>>>> Stashed changes
 
-# Text preprocessing
-tfq0tool input.docx --preprocess lowercase,strip_whitespace
 
-# Verbose output with progress
-tfq0tool *.pdf --verbose
 
-# Force overwrite existing files
-tfq0tool data.xlsx --force
-```
-
-<<<<<<< Updated upstream
-2. Used by repository  "Python 3.8 or higher required"
+2. Used by repository
    ```bash
-      git clone https://github.com/tfq0/tfq0tool.git
-      cd tfq0tool
+      git clone https://github.com/tfq0/TFQ0tool.git
+      cd tfq-tool
       pip install -r requirements.txt
-      cd tfq0tool
-      python tfq0tool.py
-=======
-## Command-Line Options ⚙️
->>>>>>> Stashed changes
-=======
-# Enable parallel processing
-tfq0tool *.pdf --threads 4
-```
+      python tfq-tool.py
 
-### Advanced Options
-```bash
-# Password-protected PDF
-tfq0tool secure.pdf --password mypass
 
-# Text preprocessing
-tfq0tool input.docx --preprocess lowercase,strip_whitespace
 
-# Verbose output with progress
-tfq0tool *.pdf --verbose
+3. Usage 🛠️
 
-# Force overwrite existing files
-tfq0tool data.xlsx --force
-```
+    ```bash
 
-## Command-Line Options ⚙️
->>>>>>> Stashed changes
+         "Basic Command"
+          tfq0tool [FILES] [OPTIONS] 
 
-| Option | Description |
-|--------|-------------|
-| `-o, --output` | Output directory for extracted text |
-| `-t, --threads` | Number of threads (default: 1) |
-| `-v, --verbose` | Enable detailed output |
-| `-f, --force` | Overwrite without confirmation |
-| `-p, --password` | PDF password |
-| `--preprocess` | Text preprocessing options |
+         "Single file extraction" 
+         tfq0tool document.pdf --output results.txt 
 
-## Text Preprocessing Options 🔧
+         "Batch processing with 4 threads"
+         tfq0tool *.pdf *.docx --threads 4 --output ./extracted_texts
 
-- `lowercase`: Convert text to lowercase
-- `strip_whitespace`: Remove excessive whitespace
 
-## Requirements 📋
+         "Force overwrite existing files"  
+         tfq0tool data.xlsx --output output.txt --force
 
-- Python 3.8 or higher
-- Required packages (automatically installed):
-  - PyPDF2
-  - python-docx
-  - openpyxl
-  - pdfminer.six
-  - pytesseract
-  - Pillow
-  - tqdm
-  - chardet
 
-## Contributing 🤝
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Options⚙️
 
-## License 📄
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support 💬
-
-=======
-# Enable parallel processing
-tfq0tool *.pdf --threads 4
-```
-
-### Advanced Options
-```bash
-# Password-protected PDF
-tfq0tool secure.pdf --password mypass
-
-# Text preprocessing
-tfq0tool input.docx --preprocess lowercase,strip_whitespace
-
-# Verbose output with progress
-tfq0tool *.pdf --verbose
-
-# Force overwrite existing files
-tfq0tool data.xlsx --force
-```
-
-## Command-Line Options ⚙️
-
-| Option | Description |
-|--------|-------------|
-| `-o, --output` | Output directory for extracted text |
-| `-t, --threads` | Number of threads (default: 1) |
-| `-v, --verbose` | Enable detailed output |
-| `-f, --force` | Overwrite without confirmation |
-| `-p, --password` | PDF password |
-| `--preprocess` | Text preprocessing options |
-
-## Text Preprocessing Options 🔧
-
-- `lowercase`: Convert text to lowercase
-- `strip_whitespace`: Remove excessive whitespace
-
-## Requirements 📋
-
-- Python 3.8 or higher
-- Required packages (automatically installed):
-  - PyPDF2
-  - python-docx
-  - openpyxl
-  - pdfminer.six
-  - pytesseract
-  - Pillow
-  - tqdm
-  - chardet
-
-## Contributing 🤝
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support 💬
-
->>>>>>> Stashed changes
-=======
-# Enable parallel processing
-tfq0tool *.pdf --threads 4
-```
-
-### Advanced Options
-```bash
-# Password-protected PDF
-tfq0tool secure.pdf --password mypass
-
-# Text preprocessing
-tfq0tool input.docx --preprocess lowercase,strip_whitespace
-
-# Verbose output with progress
-tfq0tool *.pdf --verbose
-
-# Force overwrite existing files
-tfq0tool data.xlsx --force
-```
-
-## Command-Line Options ⚙️
-
-| Option | Description |
-|--------|-------------|
-| `-o, --output` | Output directory for extracted text |
-| `-t, --threads` | Number of threads (default: 1) |
-| `-v, --verbose` | Enable detailed output |
-| `-f, --force` | Overwrite without confirmation |
-| `-p, --password` | PDF password |
-| `--preprocess` | Text preprocessing options |
-
-## Text Preprocessing Options 🔧
-
-- `lowercase`: Convert text to lowercase
-- `strip_whitespace`: Remove excessive whitespace
-
-## Requirements 📋
-
-- Python 3.8 or higher
-- Required packages (automatically installed):
-  - PyPDF2
-  - python-docx
-  - openpyxl
-  - pdfminer.six
-  - pytesseract
-  - Pillow
-  - tqdm
-  - chardet
-
-## Contributing 🤝
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support 💬
-
->>>>>>> Stashed changes
-=======
-# Enable parallel processing
-tfq0tool *.pdf --threads 4
-```
-
-### Advanced Options
-```bash
-# Password-protected PDF
-tfq0tool secure.pdf --password mypass
-
-# Text preprocessing
-tfq0tool input.docx --preprocess lowercase,strip_whitespace
-
-# Verbose output with progress
-tfq0tool *.pdf --verbose
-
-# Force overwrite existing files
-tfq0tool data.xlsx --force
-```
-
-## Command-Line Options ⚙️
-
-| Option | Description |
-|--------|-------------|
-| `-o, --output` | Output directory for extracted text |
-| `-t, --threads` | Number of threads (default: 1) |
-| `-v, --verbose` | Enable detailed output |
-| `-f, --force` | Overwrite without confirmation |
-| `-p, --password` | PDF password |
-| `--preprocess` | Text preprocessing options |
-
-## Text Preprocessing Options 🔧
-
-- `lowercase`: Convert text to lowercase
-- `strip_whitespace`: Remove excessive whitespace
-
-## Requirements 📋
-
-- Python 3.8 or higher
-- Required packages (automatically installed):
-  - PyPDF2
-  - python-docx
-  - openpyxl
-  - pdfminer.six
-  - pytesseract
-  - Pillow
-  - tqdm
-  - chardet
-
-## Contributing 🤝
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support 💬
-
->>>>>>> Stashed changes
-=======
-# Enable parallel processing
-tfq0tool *.pdf --threads 4
-```
-
-### Advanced Options
-```bash
-# Password-protected PDF
-tfq0tool secure.pdf --password mypass
-
-# Text preprocessing
-tfq0tool input.docx --preprocess lowercase,strip_whitespace
-
-# Verbose output with progress
-tfq0tool *.pdf --verbose
-
-# Force overwrite existing files
-tfq0tool data.xlsx --force
-```
-
-## Command-Line Options ⚙️
-
-| Option | Description |
-|--------|-------------|
-| `-o, --output` | Output directory for extracted text |
-| `-t, --threads` | Number of threads (default: 1) |
-| `-v, --verbose` | Enable detailed output |
-| `-f, --force` | Overwrite without confirmation |
-| `-p, --password` | PDF password |
-| `--preprocess` | Text preprocessing options |
-
-## Text Preprocessing Options 🔧
-
-- `lowercase`: Convert text to lowercase
-- `strip_whitespace`: Remove excessive whitespace
-
-## Requirements 📋
-
-- Python 3.8 or higher
-- Required packages (automatically installed):
-  - PyPDF2
-  - python-docx
-  - openpyxl
-  - pdfminer.six
-  - pytesseract
-  - Pillow
-  - tqdm
-  - chardet
-
-## Contributing 🤝
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support 💬
-
->>>>>>> Stashed changes
-If you encounter any issues or have questions:
-- Open an issue on [GitHub](https://github.com/tfq0/TFQ0tool/issues)
-- Check the [documentation](https://github.com/tfq0/TFQ0tool/wiki)
+- **Flag	Description**
+- -o, --output	Output path (file or directory)
+- -t, --threads	Thread count (default: 1)
+- -v, --verbose	Show detailed processing logs
+- -f, --force  	Overwrite files without confirmation
 
