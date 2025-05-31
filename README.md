@@ -60,6 +60,7 @@ tfq0tool *.pdf *.docx
 tfq0tool document.pdf --output ./extracted/
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 1. Run tool 
 
    ```bash
@@ -94,6 +95,28 @@ tfq0tool data.xlsx --force
       cd tfq0tool
       python tfq0tool.py
 =======
+## Command-Line Options ⚙️
+>>>>>>> Stashed changes
+=======
+# Enable parallel processing
+tfq0tool *.pdf --threads 4
+```
+
+### Advanced Options
+```bash
+# Password-protected PDF
+tfq0tool secure.pdf --password mypass
+
+# Text preprocessing
+tfq0tool input.docx --preprocess lowercase,strip_whitespace
+
+# Verbose output with progress
+tfq0tool *.pdf --verbose
+
+# Force overwrite existing files
+tfq0tool data.xlsx --force
+```
+
 ## Command-Line Options ⚙️
 >>>>>>> Stashed changes
 
