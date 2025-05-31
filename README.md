@@ -61,6 +61,7 @@ tfq0tool document.pdf --output ./extracted/
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 1. Run tool 
 
    ```bash
@@ -157,6 +158,66 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support 💬
 
+=======
+# Enable parallel processing
+tfq0tool *.pdf --threads 4
+```
+
+### Advanced Options
+```bash
+# Password-protected PDF
+tfq0tool secure.pdf --password mypass
+
+# Text preprocessing
+tfq0tool input.docx --preprocess lowercase,strip_whitespace
+
+# Verbose output with progress
+tfq0tool *.pdf --verbose
+
+# Force overwrite existing files
+tfq0tool data.xlsx --force
+```
+
+## Command-Line Options ⚙️
+
+| Option | Description |
+|--------|-------------|
+| `-o, --output` | Output directory for extracted text |
+| `-t, --threads` | Number of threads (default: 1) |
+| `-v, --verbose` | Enable detailed output |
+| `-f, --force` | Overwrite without confirmation |
+| `-p, --password` | PDF password |
+| `--preprocess` | Text preprocessing options |
+
+## Text Preprocessing Options 🔧
+
+- `lowercase`: Convert text to lowercase
+- `strip_whitespace`: Remove excessive whitespace
+
+## Requirements 📋
+
+- Python 3.8 or higher
+- Required packages (automatically installed):
+  - PyPDF2
+  - python-docx
+  - openpyxl
+  - pdfminer.six
+  - pytesseract
+  - Pillow
+  - tqdm
+  - chardet
+
+## Contributing 🤝
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License 📄
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support 💬
+
+>>>>>>> Stashed changes
 If you encounter any issues or have questions:
 - Open an issue on [GitHub](https://github.com/tfq0/TFQ0tool/issues)
 - Check the [documentation](https://github.com/tfq0/TFQ0tool/wiki)
