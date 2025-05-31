@@ -9,28 +9,12 @@
 ## Features ✨
 
 - 📂 **Multi-format Support**
-  - PDF files (including scanned PDFs with OCR)
-  - Word documents (DOCX)
-  - Excel spreadsheets (XLSX)
-  - Text and code files
-  - Support for password-protected PDFs
 
 - 🚀 **Advanced Processing**
-  - Multi-threaded parallel processing
-  - Automatic encoding detection
-  - Memory-efficient large file handling
-  - Text preprocessing options
-  - OCR support for scanned documents
 
 - 📊 **Progress Tracking**
-  - Real-time progress bars
-  - Detailed success/failure reporting
-  - Comprehensive logging system
 
 - 🛡️ **Robust Error Handling**
-  - Graceful handling of corrupted files
-  - Clear error messages
-  - Detailed debug logging
 
 ## Installation 💻
 
