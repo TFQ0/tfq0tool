@@ -97,27 +97,7 @@ tfq0tool data.xlsx --force
 ## Requirements 📋
 
 - Python 3.8 or higher
-- Required packages (automatically installed):
-  - PyPDF2
-  - python-docx
-  - openpyxl
-  - pdfminer.six
-  - pytesseract
-  - Pillow
-  - tqdm
-  - chardet
 
-## Contributing 🤝
 
-Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support 💬
-
-If you encounter any issues or have questions:
-- Open an issue on [GitHub](https://github.com/tfq0/TFQ0tool/issues)
-- Check the [documentation](https://github.com/tfq0/TFQ0tool/wiki)
 
