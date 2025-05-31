@@ -1,35 +1,91 @@
-# TFQ0tool  
-**is a command-line utility for extracting text from various file formats, including text files, PDFs, Word documents, spreadsheets, and code files in popular programming languages.**  
+# TFQ0tool
+
+**A powerful command-line utility for extracting text from various file formats, including PDFs, Word documents, spreadsheets, and code files.**
+
 [![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI Version](https://img.shields.io/pypi/v/tfq0tool)](https://pypi.org/project/tfq0tool/)
 
 ## Features ✨
-- 📂 **Multi-format support**: PDF, Word, Excel, TXT, and 8+ code formats
-- ⚡ **Parallel processing**: Multi-threaded extraction for bulk operations
-- 🛡️ **Robust error handling**: Clear error messages and file validation
-- 📦 **Auto-output naming**: Generates organized output files/directories
+
+- 📂 **Multi-format Support**
+  - PDF files (including scanned PDFs with OCR)
+  - Word documents (DOCX)
+  - Excel spreadsheets (XLSX)
+  - Text and code files
+  - Support for password-protected PDFs
+
+- 🚀 **Advanced Processing**
+  - Multi-threaded parallel processing
+  - Automatic encoding detection
+  - Memory-efficient large file handling
+  - Text preprocessing options
+  - OCR support for scanned documents
+
+- 📊 **Progress Tracking**
+  - Real-time progress bars
+  - Detailed success/failure reporting
+  - Comprehensive logging system
+
+- 🛡️ **Robust Error Handling**
+  - Graceful handling of corrupted files
+  - Clear error messages
+  - Detailed debug logging
 
 ## Installation 💻
 
 ### From PyPI (Recommended)
+```bash
+pip install tfq0tool
+```
 
+### From Source
+```bash
+git clone https://github.com/tfq0/TFQ0tool.git
+cd TFQ0tool
+pip install -e .
+```
 
+## Usage 🛠️
 
+### Basic Usage
+```bash
+# Process a single file
+tfq0tool document.pdf
 
-1. Download from pipx
+# Process multiple files
+tfq0tool *.pdf *.docx
 
-     ```bash
-     pipx install tfq0tool
+# Specify output directory
+tfq0tool document.pdf --output ./extracted/
 
+<<<<<<< Updated upstream
 1. Run tool 
 
    ```bash
    pipx run tfq0tool
+=======
+# Enable parallel processing
+tfq0tool *.pdf --threads 4
+```
 
+### Advanced Options
+```bash
+# Password-protected PDF
+tfq0tool secure.pdf --password mypass
+>>>>>>> Stashed changes
 
+# Text preprocessing
+tfq0tool input.docx --preprocess lowercase,strip_whitespace
 
+# Verbose output with progress
+tfq0tool *.pdf --verbose
 
+# Force overwrite existing files
+tfq0tool data.xlsx --force
+```
+
+<<<<<<< Updated upstream
 2. Used by repository  "Python 3.8 or higher required"
    ```bash
       git clone https://github.com/tfq0/tfq0tool.git
@@ -37,34 +93,48 @@
       pip install -r requirements.txt
       cd tfq0tool
       python tfq0tool.py
+=======
+## Command-Line Options ⚙️
+>>>>>>> Stashed changes
 
+| Option | Description |
+|--------|-------------|
+| `-o, --output` | Output directory for extracted text |
+| `-t, --threads` | Number of threads (default: 1) |
+| `-v, --verbose` | Enable detailed output |
+| `-f, --force` | Overwrite without confirmation |
+| `-p, --password` | PDF password |
+| `--preprocess` | Text preprocessing options |
 
+## Text Preprocessing Options 🔧
 
-3. Usage 🛠️
+- `lowercase`: Convert text to lowercase
+- `strip_whitespace`: Remove excessive whitespace
 
-    ```bash
+## Requirements 📋
 
-         "Basic Command"
-          tfq0tool [FILES] [OPTIONS] 
+- Python 3.8 or higher
+- Required packages (automatically installed):
+  - PyPDF2
+  - python-docx
+  - openpyxl
+  - pdfminer.six
+  - pytesseract
+  - Pillow
+  - tqdm
+  - chardet
 
-         "Single file extraction" 
-         tfq0tool document.pdf --output results.txt 
+## Contributing 🤝
 
-         "Batch processing with 4 threads"
-         tfq0tool *.pdf *.docx --threads 4 --output ./extracted_texts
+Contributions are welcome! Please feel free to submit a Pull Request.
 
+## License 📄
 
-         "Force overwrite existing files"  
-         tfq0tool data.xlsx --output output.txt --force
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Support 💬
 
-
-## Options⚙️
-
-
-- **Flag	Description**
-- -o, --output	Output path (file or directory)
-- -t, --threads	Thread count (default: 1)
-- -v, --verbose	Show detailed processing logs
-- -f, --force  	Overwrite files without confirmation
+If you encounter any issues or have questions:
+- Open an issue on [GitHub](https://github.com/tfq0/TFQ0tool/issues)
+- Check the [documentation](https://github.com/tfq0/TFQ0tool/wiki)
 
