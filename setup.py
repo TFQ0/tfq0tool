@@ -11,7 +11,11 @@ setup(
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     version="1.2.5",            
+=======
+    version="0.3.0",            
+>>>>>>> Stashed changes
 =======
     version="0.3.0",            
 >>>>>>> Stashed changes
