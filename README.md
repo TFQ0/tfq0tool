@@ -1,87 +1,99 @@
 # TFQ0tool
 
-**A powerful command-line utility for extracting text from various file formats, including PDFs, Word documents, spreadsheets, and code files.**
+A command-line utility for extracting text from various file formats. Designed for simplicity and efficiency.
 
-[![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PyPI Version](https://img.shields.io/pypi/v/tfq0tool)](https://pypi.org/project/tfq0tool/)
+## Features
 
-## Features ✨
+- **Format Support**:
+  - PDF (with password protection)
+  - Microsoft Office (DOCX, DOC, XLSX, XLS)
+  - Data files (CSV, JSON, XML)
+  - Text files (TXT, LOG, MD)
 
-- 📂 **Multi-format Support**
+- **Processing Features**:
+  - Parallel processing
+  - Memory-efficient streaming
+  - Text preprocessing (lowercase, whitespace removal)
+  - Progress tracking
+  - Automatic encoding detection
 
-- 🚀 **Advanced Processing**
+## Installation
 
-- 📊 **Progress Tracking**
-
-- 🛡️ **Robust Error Handling**
-
-## Installation 💻
-
-### From PyPI (Recommended)
 ```bash
 pip install tfq0tool
 ```
 
-### From Source
-```bash
-git clone https://github.com/tfq0/TFQ0tool.git
-cd TFQ0tool
-pip install -e .
-```
+## Usage
 
-## Usage 🛠️
+### Basic Commands
 
-### Basic Usage
 ```bash
-# Process a single file
-tfq0tool document.pdf
+# Extract text from a file
+tfq0tool extract document.pdf
+
+# Extract to specific directory
+tfq0tool extract document.pdf -o output_dir
 
 # Process multiple files
-tfq0tool *.pdf *.docx
+tfq0tool extract *.pdf *.docx -o ./extracted
 
-# Specify output directory
-tfq0tool document.pdf --output ./extracted/
+# Show supported formats
+tfq0tool formats
 
-# Enable parallel processing
-tfq0tool *.pdf --threads 4
+# Show help
+tfq0tool --help
 ```
 
-### Advanced Options
+### Extract Options
+
 ```bash
-# Password-protected PDF
-tfq0tool secure.pdf --password mypass
+tfq0tool extract [OPTIONS] FILE_PATHS...
 
-# Text preprocessing
-tfq0tool input.docx --preprocess lowercase,strip_whitespace
-
-# Verbose output with progress
-tfq0tool *.pdf --verbose
-
-# Force overwrite existing files
-tfq0tool data.xlsx --force
+Options:
+  -o, --output DIR    Output directory
+  -t, --threads N     Thread count (default: auto)
+  -f, --force        Overwrite existing files
+  -p, --password PWD  PDF password
+  --preprocess OPT    Preprocessing (lowercase,strip_whitespace)
+  --progress         Show progress bar
+  --verbose         Detailed output
 ```
 
-## Command-Line Options ⚙️
+### Configuration
 
-| Option | Description |
-|--------|-------------|
-| `-o, --output` | Output directory for extracted text |
-| `-t, --threads` | Number of threads (default: 1) |
-| `-v, --verbose` | Enable detailed output |
-| `-f, --force` | Overwrite without confirmation |
-| `-p, --password` | PDF password |
-| `--preprocess` | Text preprocessing options |
+View or modify settings:
 
-## Text Preprocessing Options 🔧
+```bash
+# Show current config
+tfq0tool config --show
 
-- `lowercase`: Convert text to lowercase
-- `strip_whitespace`: Remove excessive whitespace
+# Reset to defaults
+tfq0tool config --reset
 
-## Requirements 📋
+# Change settings
+tfq0tool config --set processing.chunk_size 2097152
+tfq0tool config --set threading.max_threads 8
+```
 
-- Python 3.8 or higher
+## Examples
 
+```bash
+# Basic text extraction
+tfq0tool extract document.pdf
 
+# Multiple files with progress
+tfq0tool extract *.pdf *.docx --progress -o ./output
 
+# Process password-protected PDF
+tfq0tool extract secure.pdf -p mypassword
 
+# Extract with preprocessing
+tfq0tool extract input.docx --preprocess lowercase,strip_whitespace
+
+# Parallel processing
+tfq0tool extract *.pdf -t 4 --progress
+```
+
+## License
+
+MIT License - see LICENSE file for details.
