@@ -1,190 +1,223 @@
-"""Text extraction implementations for various file formats."""
+"""Text extraction module with support for various file formats."""
 
-import os
 import logging
-from typing import Optional, Dict, Any
 from pathlib import Path
-import chardet
+from typing import Dict, Any, Optional, Generator, Union
+from abc import ABC, abstractmethod
+import mimetypes
+import tempfile
+import shutil
+
+# Third-party imports for different file formats
 from PyPDF2 import PdfReader
 from docx import Document
-import openpyxl
-from PIL import Image
-import pytesseract
-from pdfminer.high_level import extract_text as pdfminer_extract
-from pdfminer.pdfparser import PDFSyntaxError
+import pandas as pd
+import xml.etree.ElementTree as ET
+import json
+import chardet
+
+from .config import config
 
 logger = logging.getLogger(__name__)
 
-class BaseExtractor:
-    """Base class for all text extractors."""
+class BaseExtractor(ABC):
+    """Base class for text extractors."""
     
     def __init__(self, preprocessing_options: Optional[Dict[str, Any]] = None):
         self.preprocessing_options = preprocessing_options or {}
     
-    def detect_encoding(self, file_path: str) -> str:
-        """Detect the encoding of a file."""
-        with open(file_path, 'rb') as f:
-            raw_data = f.read()
-            result = chardet.detect(raw_data)
-            return result['encoding'] or 'utf-8'
+    @abstractmethod
+    def extract_iter(self, file_path: str) -> Generator[str, None, None]:
+        """Extract text from file in chunks."""
+        pass
+    
+    def extract(self, file_path: str) -> str:
+        """Extract all text at once. Use with caution for large files."""
+        return "".join(self.extract_iter(file_path))
     
     def preprocess_text(self, text: str) -> str:
-        """Apply text preprocessing based on options."""
-        if self.preprocessing_options.get('strip_whitespace', True):
-            text = ' '.join(text.split())
-        if self.preprocessing_options.get('lowercase', False):
+        """Apply preprocessing options to text."""
+        if self.preprocessing_options.get("lowercase", False):
             text = text.lower()
+        if self.preprocessing_options.get("strip_whitespace", False):
+            text = " ".join(text.split())
         return text
 
-class TxtExtractor(BaseExtractor):
-    def extract(self, file_path: str) -> str:
-        encoding = self.detect_encoding(file_path)
+class PDFExtractor(BaseExtractor):
+    """Extract text from PDF files."""
+    
+    def extract_iter(self, file_path: str) -> Generator[str, None, None]:
         try:
-            with open(file_path, 'r', encoding=encoding) as f:
-                text = f.read()
-            return self.preprocess_text(text)
-        except UnicodeDecodeError as e:
-            logger.error(f"Error decoding {file_path}: {e}")
-            raise
-
-class PdfExtractor(BaseExtractor):
-    def extract(self, file_path: str, password: Optional[str] = None) -> str:
-        text_parts = []
-        try:
-            # Try PyPDF2 first
-            with open(file_path, 'rb') as f:
-                reader = PdfReader(f)
-                if reader.is_encrypted and password:
-                    reader.decrypt(password)
+            with open(file_path, 'rb') as file:
+                pdf = PdfReader(file)
                 
-                for page in reader.pages:
+                if pdf.is_encrypted:
+                    password = self.preprocessing_options.get("password")
+                    if not password or not pdf.decrypt(password):
+                        raise ValueError("PDF is encrypted and no valid password provided")
+                
+                for page in pdf.pages:
                     text = page.extract_text()
-                    if not text.strip():
-                        # If no text found, try pdfminer
-                        text = pdfminer_extract(file_path, page_numbers=[reader.pages.index(page)])
-                    if not text.strip():
-                        # If still no text, might be scanned PDF - try OCR
-                        text = self._extract_text_with_ocr(file_path, reader.pages.index(page))
-                    text_parts.append(text)
-                
-            return self.preprocess_text('\n'.join(text_parts))
-        except (PDFSyntaxError, Exception) as e:
-            logger.error(f"Error processing PDF {file_path}: {e}")
-            raise
-
-    def _extract_text_with_ocr(self, file_path: str, page_number: int) -> str:
-        """Extract text from images using OCR."""
-        try:
-            # Convert PDF page to image and perform OCR
-            images = self._pdf_page_to_image(file_path, page_number)
-            text_parts = []
-            for img in images:
-                text_parts.append(pytesseract.image_to_string(img))
-            return '\n'.join(text_parts)
+                    if text:
+                        yield self.preprocess_text(text)
+                        
         except Exception as e:
-            logger.warning(f"OCR extraction failed for page {page_number}: {e}")
-            return ""
-
-    def _pdf_page_to_image(self, file_path: str, page_number: int):
-        """Convert a PDF page to image."""
-        # Implementation depends on your preferred PDF to image conversion method
-        # This is a placeholder - you would need to implement actual conversion
-        pass
+            logger.error(f"Error extracting text from PDF {file_path}: {e}")
+            raise
 
 class DocxExtractor(BaseExtractor):
-    def extract(self, file_path: str) -> str:
+    """Extract text from DOCX files."""
+    
+    def extract_iter(self, file_path: str) -> Generator[str, None, None]:
         try:
             doc = Document(file_path)
-            text_parts = []
             
-            # Extract headers
-            for section in doc.sections:
-                header = section.header
-                if header.is_linked_to_previous:
-                    continue
-                for paragraph in header.paragraphs:
-                    text_parts.append(paragraph.text)
-            
-            # Extract main content
+            # Process paragraphs
             for paragraph in doc.paragraphs:
-                text_parts.append(paragraph.text)
+                text = paragraph.text
+                if text:
+                    yield self.preprocess_text(text + "\n")
             
-            # Extract tables
+            # Process tables
             for table in doc.tables:
                 for row in table.rows:
-                    row_text = ' '.join(cell.text for cell in row.cells)
-                    text_parts.append(row_text)
-            
-            # Extract footers
-            for section in doc.sections:
-                footer = section.footer
-                if footer.is_linked_to_previous:
-                    continue
-                for paragraph in footer.paragraphs:
-                    text_parts.append(paragraph.text)
-            
-            return self.preprocess_text('\n'.join(text_parts))
+                    row_text = " | ".join(cell.text for cell in row.cells)
+                    if row_text:
+                        yield self.preprocess_text(row_text + "\n")
+                        
         except Exception as e:
-            logger.error(f"Error processing DOCX {file_path}: {e}")
+            logger.error(f"Error extracting text from DOCX {file_path}: {e}")
             raise
 
-class XlsxExtractor(BaseExtractor):
-    def extract(self, file_path: str) -> str:
+class SpreadsheetExtractor(BaseExtractor):
+    """Extract text from Excel and CSV files."""
+    
+    def extract_iter(self, file_path: str) -> Generator[str, None, None]:
         try:
-            text_parts = []
-            workbook = openpyxl.load_workbook(file_path, data_only=True)
+            # Determine file type
+            if file_path.endswith('.csv'):
+                df = pd.read_csv(file_path, chunksize=1000)
+            else:  # Excel files
+                df = pd.read_excel(file_path, sheet_name=None)
+                if isinstance(df, dict):
+                    for sheet_name, sheet_df in df.items():
+                        yield f"\n=== Sheet: {sheet_name} ===\n"
+                        for chunk in self._process_dataframe(sheet_df):
+                            yield chunk
+                    return
             
-            for sheet in workbook.sheetnames:
-                worksheet = workbook[sheet]
-                text_parts.append(f"\n=== Sheet: {sheet} ===\n")
+            # Process chunks
+            for chunk in self._process_dataframe(df):
+                yield chunk
                 
-                # Get the maximum row and column with content
-                max_row = worksheet.max_row
-                max_col = worksheet.max_column
-                
-                for row in worksheet.iter_rows(values_only=True, max_row=max_row, max_col=max_col):
-                    row_text = " | ".join(str(cell) if cell is not None else '' for cell in row)
-                    if row_text.strip():  # Only add non-empty rows
-                        text_parts.append(row_text)
-            
-            return self.preprocess_text('\n'.join(text_parts))
         except Exception as e:
-            logger.error(f"Error processing XLSX {file_path}: {e}")
+            logger.error(f"Error extracting text from spreadsheet {file_path}: {e}")
+            raise
+    
+    def _process_dataframe(self, df) -> Generator[str, None, None]:
+        """Process DataFrame in chunks."""
+        if hasattr(df, 'chunksize'):  # CSV with chunks
+            for chunk in df:
+                yield self.preprocess_text(chunk.to_string() + "\n")
+        else:  # Single DataFrame
+            yield self.preprocess_text(df.to_string() + "\n")
+
+class XMLExtractor(BaseExtractor):
+    """Extract text from XML files."""
+    
+    def extract_iter(self, file_path: str) -> Generator[str, None, None]:
+        try:
+            tree = ET.parse(file_path)
+            root = tree.getroot()
+            
+            for elem in root.iter():
+                if elem.text and elem.text.strip():
+                    yield self.preprocess_text(elem.text.strip() + "\n")
+                if elem.tail and elem.tail.strip():
+                    yield self.preprocess_text(elem.tail.strip() + "\n")
+                    
+        except Exception as e:
+            logger.error(f"Error extracting text from XML {file_path}: {e}")
             raise
 
-class CodeExtractor(BaseExtractor):
-    def extract(self, file_path: str) -> str:
-        encoding = self.detect_encoding(file_path)
+class JSONExtractor(BaseExtractor):
+    """Extract text from JSON files."""
+    
+    def extract_iter(self, file_path: str) -> Generator[str, None, None]:
         try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            for text in self._extract_values(data):
+                if text:
+                    yield self.preprocess_text(str(text) + "\n")
+                    
+        except Exception as e:
+            logger.error(f"Error extracting text from JSON {file_path}: {e}")
+            raise
+    
+    def _extract_values(self, obj: Any) -> Generator[str, None, None]:
+        """Recursively extract values from JSON object."""
+        if isinstance(obj, dict):
+            for value in obj.values():
+                yield from self._extract_values(value)
+        elif isinstance(obj, list):
+            for item in obj:
+                yield from self._extract_values(item)
+        elif isinstance(obj, (str, int, float, bool)):
+            yield str(obj)
+
+class TextExtractor(BaseExtractor):
+    """Extract text from plain text files with encoding detection."""
+    
+    def extract_iter(self, file_path: str) -> Generator[str, None, None]:
+        try:
+            # Detect encoding
+            with open(file_path, 'rb') as f:
+                raw_data = f.read()
+                result = chardet.detect(raw_data)
+                encoding = result['encoding'] or 'utf-8'
+            
+            # Read file in chunks
+            chunk_size = config.get("processing", "chunk_size")
             with open(file_path, 'r', encoding=encoding) as f:
-                text = f.read()
-            return self.preprocess_text(text)
-        except UnicodeDecodeError as e:
-            logger.error(f"Error decoding {file_path}: {e}")
+                while True:
+                    chunk = f.read(chunk_size)
+                    if not chunk:
+                        break
+                    yield self.preprocess_text(chunk)
+                    
+        except Exception as e:
+            logger.error(f"Error extracting text from file {file_path}: {e}")
             raise
 
 def get_extractor(file_path: str, preprocessing_options: Optional[Dict[str, Any]] = None) -> BaseExtractor:
-    """Factory function to get the appropriate extractor based on file extension."""
-    ext = Path(file_path).suffix.lower()
+    """Factory function to get appropriate extractor based on file type."""
+    file_path = str(file_path).lower()
     
     extractors = {
-        '.txt': TxtExtractor,
-        '.pdf': PdfExtractor,
+        '.pdf': PDFExtractor,
         '.docx': DocxExtractor,
-        '.xlsx': XlsxExtractor,
-        '.py': CodeExtractor,
-        '.java': CodeExtractor,
-        '.js': CodeExtractor,
-        '.html': CodeExtractor,
-        '.css': CodeExtractor,
-        '.json': CodeExtractor,
-        '.xml': CodeExtractor,
-        '.c': CodeExtractor,
-        '.cpp': CodeExtractor,
+        '.doc': DocxExtractor,
+        '.xlsx': SpreadsheetExtractor,
+        '.xls': SpreadsheetExtractor,
+        '.csv': SpreadsheetExtractor,
+        '.xml': XMLExtractor,
+        '.json': JSONExtractor,
+        '.txt': TextExtractor,
+        '.log': TextExtractor,
+        '.md': TextExtractor,
+        '.rtf': TextExtractor
     }
     
+    ext = Path(file_path).suffix.lower()
     extractor_class = extractors.get(ext)
+    
     if not extractor_class:
-        raise ValueError(f"Unsupported file format: {ext}")
+        mime_type = mimetypes.guess_type(file_path)[0]
+        if mime_type and 'text' in mime_type:
+            extractor_class = TextExtractor
+        else:
+            raise ValueError(f"Unsupported file type: {ext}")
     
     return extractor_class(preprocessing_options) 
