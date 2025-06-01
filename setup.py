@@ -7,7 +7,11 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="tfq0tool",            
+<<<<<<< Updated upstream
     version="2.1.5",            
+=======
+    version="2.1.7",            
+>>>>>>> Stashed changes
     author="Talal",
     description="A powerful text extraction utility for multiple file formats, including PDFs, Word documents, spreadsheets, and code files.",
     long_description=long_description,
@@ -17,12 +21,15 @@ setup(
     install_requires=[
         "PyPDF2>=3.0.0",
         "python-docx>=0.8.11",
+        "pandas>=1.5.0",
         "openpyxl>=3.1.0",
         "pdfminer.six>=20221105",
-        "pytesseract>=0.3.10",
-        "Pillow>=9.5.0",
+        "chardet>=5.0.0",
         "tqdm>=4.65.0",
-        "chardet>=5.1.0",
+        "pytesseract>=0.3.10",  # Required for OCR functionality
+        "Pillow>=9.5.0",        # Required for image processing
+        "python-magic>=0.4.27",  # Required for file type detection
+        "python-magic-bin>=0.4.14; sys_platform == 'win32'",  # Required for Windows support
     ],
     entry_points={
         "console_scripts": [
