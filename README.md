@@ -5,22 +5,26 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/tfq0tool.svg)](https://pypi.org/project/tfq0tool/)
 [![Downloads](https://img.shields.io/pypi/dm/tfq0tool.svg)](https://pypi.org/project/tfq0tool/)
 
-A command-line utility for extracting text from various file formats. Designed for simplicity and efficiency.
+A powerful command-line utility for extracting text from various file formats with advanced processing capabilities.
 
 ## Features
 
 - **Format Support**:
-  - PDF (with password protection)
+  - PDF (with password protection and OCR support)
   - Microsoft Office (DOCX, DOC, XLSX, XLS)
   - Data files (CSV, JSON, XML)
   - Text files (TXT, LOG, MD)
+  - Image files (via OCR)
 
 - **Processing Features**:
-  - Parallel processing
-  - Memory-efficient streaming
-  - Text preprocessing (lowercase, whitespace removal)
-  - Progress tracking
+  - Parallel processing with configurable threads
+  - Memory-efficient streaming extraction
+  - Advanced text preprocessing options
+  - OCR support for images and scanned documents
+  - Multiple output formats (TXT, JSON, CSV, MD)
+  - Progress tracking and detailed logging
   - Automatic encoding detection
+  - Language-specific processing
 
 ## Installation
 
@@ -36,32 +40,51 @@ pip install tfq0tool
 # Extract text from a file
 tfq0tool extract document.pdf
 
-# Extract to specific directory
-tfq0tool extract document.pdf -o output_dir
+# Show supported formats with details
+tfq0tool formats --details
 
-# Process multiple files
-tfq0tool extract *.pdf *.docx -o ./extracted
+# Extract with OCR
+tfq0tool extract scanned.pdf --ocr --ocr-lang eng
 
-# Show supported formats
-tfq0tool formats
+# Process multiple files recursively
+tfq0tool extract ./docs/ -r --exclude "*.tmp"
 
 # Show help
 tfq0tool --help
 ```
 
-### Extract Options
+### Extract Command Options
 
 ```bash
 tfq0tool extract [OPTIONS] FILE_PATHS...
 
-Options:
+Input Options:
+  FILE_PATHS          Files to process (supports glob patterns)
+  -r, --recursive     Process directories recursively
+  --exclude PATTERN   Exclude files matching pattern
+
+Output Options:
   -o, --output DIR    Output directory
+  --format FORMAT     Output format (txt|json|csv|md)
+  --encoding ENC      Output encoding (default: utf-8)
+
+Processing Options:
   -t, --threads N     Thread count (default: auto)
-  -f, --force        Overwrite existing files
-  -p, --password PWD  PDF password
-  --preprocess OPT    Preprocessing (lowercase,strip_whitespace)
+  -f, --force         Overwrite existing files
+  -p, --password PWD  Password for encrypted PDFs
+
+Text Processing Options:
+  --preprocess OPT    Preprocessing options:
+                      lowercase,strip_whitespace,
+                      remove_numbers,remove_punctuation
+  --language LANG     Language for processing (e.g., 'en')
+  --ocr              Enable OCR for images/scanned docs
+  --ocr-lang LANG    OCR language (default: eng)
+
+Display Options:
+  --verbose          Enable detailed output
   --progress         Show progress bar
-  --verbose         Detailed output
+  --silent          Suppress non-error output
 ```
 
 ### Configuration
@@ -84,17 +107,32 @@ tfq0tool config --set threading.max_threads 8
 
 ```bash
 # Basic text extraction
-tfq0tool extract document.pdf
+tfq0tool extract document.pdf -o ./output --format txt
 
-# Multiple files with progress
-tfq0tool extract *.pdf *.docx --progress -o ./output
+# Process directory recursively with exclusions
+tfq0tool extract ./docs -r --exclude "*.tmp" --progress
 
-# Process password-protected PDF
-tfq0tool extract secure.pdf -p mypassword
+# Extract from scanned PDF with OCR
+tfq0tool extract scan.pdf --ocr --ocr-lang eng
 
-# Extract with preprocessing
-tfq0tool extract input.docx --preprocess lowercase,strip_whitespace
+# Multiple files with advanced preprocessing
+tfq0tool extract *.txt --preprocess lowercase,strip_whitespace,remove_numbers
 
-# Parallel processing
-tfq0tool extract *.pdf -t 4 --progress
+# Parallel processing with custom output format
+tfq0tool extract *.pdf -t 4 --format json --progress
+
+# Extract with specific language and encoding
+tfq0tool extract *.docx --language fr --encoding utf-8
+
+# Password-protected PDF with OCR
+tfq0tool extract secure.pdf -p mypassword --ocr
 ```
+
+## Format Details
+
+Use `tfq0tool formats --details` to see detailed information about supported formats, including:
+- Supported features for each format
+- Format-specific limitations
+- Processing capabilities
+- Best practices for extraction
+
