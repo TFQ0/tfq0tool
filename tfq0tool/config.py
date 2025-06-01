@@ -9,7 +9,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 DEFAULT_CONFIG = {
-    "version": "2.1.5",  
+    "version": "2.1.6",  
     "processing": {
         "chunk_size": 1024 * 1024,  # 1MB
         "max_file_size": 1024 * 1024 * 1024,  # 1GB
