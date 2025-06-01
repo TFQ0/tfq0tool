@@ -7,7 +7,7 @@ and advanced text processing features.
 """
 
 from .tfq0tool import main
-version="2.1.2"
+version="2.1.4"
 __author__ = "Talal"
 __description__ = "A powerful command-line utility for extracting text from various file formats, including PDFs, Word documents, spreadsheets, and code files."
 __all__ = ["TextExtractor", "FileProcessor", "utils"]
