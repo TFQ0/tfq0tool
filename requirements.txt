@@ -4,22 +4,19 @@ PyPDF2>=3.0.0
 python-docx>=0.8.11
 pandas>=1.5.0
 openpyxl>=3.1.0
+pdfminer.six>=20221105
 chardet>=5.0.0
 tqdm>=4.65.0
+pytesseract>=0.3.10  # Required for OCR functionality
+Pillow>=9.5.0        # Required for image processing
+python-magic>=0.4.27  # Required for file type detection
+python-magic-bin>=0.4.14; sys_platform == 'win32'  # Required for Windows support
 
-# Optional dependencies for enhanced functionality
-python-magic>=0.4.27  # For better file type detection
-python-magic-bin>=0.4.14; sys_platform == 'win32'  # For Windows support
-pytesseract>=0.3.10  # For OCR support
-Pillow>=9.5.0  # For image processing
-
-# Development dependencies
+# Development dependencies (not required for regular use)
 pytest>=7.3.1
 pytest-cov>=4.1.0
 black>=23.3.0
 isort>=5.12.0
 flake8>=6.0.0
 mypy>=1.3.0
-types-all>=1.0.0
-
-pdfminer.six>=20221105 
+types-all>=1.0.0 
