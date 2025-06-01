@@ -98,7 +98,3 @@ tfq0tool extract input.docx --preprocess lowercase,strip_whitespace
 # Parallel processing
 tfq0tool extract *.pdf -t 4 --progress
 ```
-
-## License
-
-MIT License - see LICENSE file for details.
