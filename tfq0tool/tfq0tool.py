@@ -4,8 +4,10 @@ import argparse
 import sys
 import logging
 from pathlib import Path
+import os
 from typing import List, Optional, Dict, Any
 import json
+import shlex
 
 from .processor import FileProcessor
 from .utils import setup_logging
@@ -475,6 +477,28 @@ def main() -> int:
             return handle_config_command(args)
             
         elif args.command == 'extract':
+            # Handle file paths with spaces and resolve absolute paths
+            processed_paths = []
+            for path in args.file_paths:
+                # Handle quoted paths and paths with spaces
+                if '"' in path:
+                    path = path.strip('"')
+                if "'" in path:
+                    path = path.strip("'")
+                
+                # Convert to absolute path if a full path is provided
+                if os.path.isabs(path):
+                    abs_path = path
+                else:
+                    abs_path = os.path.abspath(path)
+                
+                # Check if file exists
+                if not os.path.exists(abs_path):
+                    logger.error(f"File not found: {path}")
+                    return 1
+                
+                processed_paths.append(abs_path)
+            
             # Parse preprocessing options
             preprocessing_options = {}
             if args.preprocess:
@@ -489,13 +513,19 @@ def main() -> int:
             if args.password:
                 preprocessing_options['password'] = args.password
             
-            # Create processor
+            # Handle output path and format
+            output_dir = args.output if args.output else os.getcwd()
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir)
+            
+            # Create processor with resolved paths
             processor = FileProcessor(
-                file_paths=args.file_paths,
-                output_dir=args.output,
+                file_paths=processed_paths,
+                output_dir=output_dir,
                 num_threads=args.threads,
                 force=args.force,
-                preprocessing_options=preprocessing_options
+                preprocessing_options=preprocessing_options,
+                output_format=args.format  # Pass the output format to the processor
             )
             
             # Process files
