@@ -1,5 +1,10 @@
 # TFQ0tool
 
+[![PyPI version](https://img.shields.io/pypi/v/tfq0tool.svg)](https://pypi.org/project/tfq0tool/)
+[![License](https://img.shields.io/pypi/l/tfq0tool.svg)](https://github.com/tfq0/TFQ0tool/blob/main/LICENSE)
+[![Python Versions](https://img.shields.io/pypi/pyversions/tfq0tool.svg)](https://pypi.org/project/tfq0tool/)
+[![Downloads](https://img.shields.io/pypi/dm/tfq0tool.svg)](https://pypi.org/project/tfq0tool/)
+
 A command-line utility for extracting text from various file formats. Designed for simplicity and efficiency.
 
 ## Features
